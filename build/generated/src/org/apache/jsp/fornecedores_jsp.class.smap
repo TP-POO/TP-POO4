@@ -1,0 +1,25 @@
+SMAP
+fornecedores_jsp.java
+JSP
+*S JSP
+*F
++ 0 fornecedores.jsp
+fornecedores.jsp
++ 1 header.jsp
+header.jsp
+*L
+1,6:51
+1#1,95:56
+6#0,26:151
+31,36:177
+67:213,3
+68,2:216
+70:218,3
+71:221
+72,6:222,3
+78,2:240
+80:242,3
+81,7:245
+88:252,3
+89,7:255
+*E
