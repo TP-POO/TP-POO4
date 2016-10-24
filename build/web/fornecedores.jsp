@@ -20,13 +20,22 @@ if(request.getParameter("Incluir")!=null){
     response.sendRedirect(request.getRequestURI());  
 }
 if(request.getParameter("Excluir")!=null){  
-    String par = request.getParameter("i");
+  String par = request.getParameter("i");
   int i = Integer.parseInt(par);
   Database.getFornecedorList().remove(i);
   response.sendRedirect(request.getRequestURI());
 }
 if(request.getParameter("Alterar")!=null){ 
-    
+    String par = request.getParameter("i");
+    int i = Integer.parseInt(par);
+    Fornecedor p = new Fornecedor();
+    p.setNome(request.getParameter("nome"));
+    p.setRazaosocial(request.getParameter("social"));
+    p.setCnpj(request.getParameter("cnpj"));
+    p.setEmail(request.getParameter("mail"));
+    p.setTelefone(request.getParameter("tel"));
+    p.setEndereço(request.getParameter("endereço"));
+    Database.getFornecedorList().set(i,p);
 }
 %>
 <html>
@@ -42,7 +51,7 @@ if(request.getParameter("Alterar")!=null){
             <div class="row">
                 <div class="col-md-2"></div>
              <div class="col-md-8">
-            <div class="form-group">
+            <div class="form-group"  id="t">
             Nome:<input class="form-control" type="text" name='nome'/><br>
             Razão Social:<input class="form-control" type="text" name='social'/><br>
             CNPJ:<input class="form-control" type="text" name='cnpj'/><br>
@@ -51,12 +60,12 @@ if(request.getParameter("Alterar")!=null){
             Endereço:<input class="form-control" type="text" name='endereço'/><br>
              </div>
              
-            <input type="submit" name='Incluir' value='Incluir'/>
-            </form>
+                 <center>  <input type="submit" name='Incluir' value='Incluir' class="btn btn-primary"/> </center>
+            
             </div>
             </div>
-        
-        <table class="table table-hover"> 
+                <br/>
+        <table class="table table-hover caixa2 table-bordered"> 
             <tr>
                 <th>Nome</th>
                 <th>Razão Social</th>  
@@ -78,12 +87,12 @@ if(request.getParameter("Alterar")!=null){
                 <td><%=p.getTelefone()%> </td>
                 <td><%=p.getEndereço()%> </td>
                 <td>
-                    <form>
+                    
                       <input type='hidden' name='i' value='<%= i %>'/>
                       <input type='submit' name='Excluir' value='Excluir'/>
                       <input type='submit' name='Alterar' value='Alterar'/>
-                    </form>
                     
+                    </form>
                 </td>
                  
             </tr>

@@ -33,13 +33,20 @@
     
     }
     
-   /* if(request.getParameter("Alterar")!=null){
+   if(request.getParameter("Alterar")!=null){
     String par = request.getParameter("i");
     int i = Integer.parseInt(par);
-    DataBase.getC_ClienteList().getClass().equals(txtNome);
-    response.sendRedirect(request.getRequestURI());
+    Cliente c = new Cliente();
+    c.setNome(request.getParameter("txtNome"));
+    c.setCpf(request.getParameter("txtCpf"));
+    c.setRg(request.getParameter("txtRg"));
+    c.setEmail(request.getParameter("txtEmail"));
+    c.setTelefone(request.getParameter("txtTel"));
+    c.setEndereco(request.getParameter("txtEnd"));
     
-    } */
+    DatabaseCliente.getClienteList().set(i,c);
+    
+    } 
     %>
 <html>
     <head>
@@ -53,7 +60,7 @@
        <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-         <div class="form-group">    
+         <div class="form-group" id="t">    
        Nome:<input class="form-control" type="text" name="txtNome" value=""><br>
        CPF:<input class="form-control" type="text" name="txtCpf" value=""><br>
        RG:<input class="form-control" type="text" name="txtRg" value=""><br>
@@ -61,15 +68,15 @@
        Telefone:<input class="form-control" type="text" name="txtTel" value=""><br>
        Endereco:<input class="form-control" type="text" name="txtEnd" value=""><br>
         </div>
-       <input type="submit" name='Incluir' value='Incluir'/>
+            <center><input type="submit" name='Incluir' value='Incluir' class="btn btn-primary"/></center>
        
       <!--<input type="submit" name="Alterar" value="Alterar" />
        <input type="submit" name="Excluir" value="Excluir" /> -->
-       </form>
+       
         </div>
             </div>
-        
-           <table class="table table-hover"> 
+        <br/>
+           <table class="table table-hover table-bordered caixa2"> 
             <tr>
                 <th>Nome</th>
                 <th>CPF</th>
@@ -90,7 +97,7 @@
                 <td><%= c.getEndereco()%></td>
                 <td>
                     
-                    <form>
+                    
                       <input type='hidden' name='i' value='<%= i %>'/>
                       <input type='submit' name='Excluir' value='Excluir'/>
                       <input type='submit' name='Alterar' value='Alterar'/>

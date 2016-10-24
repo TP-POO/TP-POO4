@@ -39,6 +39,18 @@
 				border-radius: 20px;
                                 
 			}
+                        
+                        #t{
+                             font-size:18px;
+                        }
+                        
+                        .caixa2{
+				background-color:#98CFE8;
+				padding:100px;
+                                padding-bottom: 40px;
+				margin-bottom:10px;
+			}
+                        
 			a {
 				text-decoration: none !important;
 			}
