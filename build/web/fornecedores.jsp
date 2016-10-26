@@ -25,7 +25,7 @@ if(request.getParameter("Excluir")!=null){
   Database.getFornecedorList().remove(i);
   response.sendRedirect(request.getRequestURI());
 }
-if(request.getParameter("Alterar")!=null){ 
+if(request.getParameter("Alterar2")!=null){ 
     String par = request.getParameter("i");
     int i = Integer.parseInt(par);
     Fornecedor p = new Fornecedor();
@@ -34,7 +34,7 @@ if(request.getParameter("Alterar")!=null){
     p.setCnpj(request.getParameter("cnpj"));
     p.setEmail(request.getParameter("mail"));
     p.setTelefone(request.getParameter("tel"));
-    p.setEndereço(request.getParameter("endereço"));
+    p.setEndereço(request.getParameter("endereco"));
     Database.getFornecedorList().set(i,p);
 }
 %>
@@ -52,16 +52,16 @@ if(request.getParameter("Alterar")!=null){
                 <div class="col-md-2"></div>
              <div class="col-md-8">
             <div class="form-group"  id="t">
-            Nome:<input class="form-control" type="text" name='nome'/><br>
-            Razão Social:<input class="form-control" type="text" name='social'/><br>
-            CNPJ:<input class="form-control" type="text" name='cnpj'/><br>
-            Email:<input class="form-control" type="text" name='mail'/><br>
-            Telefone:<input class="form-control" type="text" name='tel'/><br>
-            Endereço:<input class="form-control" type="text" name='endereço'/><br>
+            Nome:<input class="form-control" placeholder="Digite o nome." type="text" name='nome'/><br>
+            Razão Social:<input class="form-control" placeholder="Digite a Razão Social." type="text" name='social'/><br>
+            CNPJ:<input class="form-control" placeholder="Digite o número do CNPJ." type="text" name='cnpj'/><br>
+            Email:<input class="form-control" placeholder="Digite o Email." type="text" name='mail'/><br>
+            Telefone:<input class="form-control" placeholder="Digite o número de Telefone." type="text" name='tel'/><br>
+            Endereço:<input class="form-control" placeholder="Digite o endereço." type="text" name='endereço'/><br>
              </div>
              
                  <center>  <input type="submit" name='Incluir' value='Incluir' class="btn btn-primary"/> </center>
-            
+                 </form>
             </div>
             </div>
                 <br/>
@@ -78,7 +78,8 @@ if(request.getParameter("Alterar")!=null){
             <% for(Fornecedor p: Database.getFornecedorList()){%>
             
             <tr>
-                <%int i= Database.getFornecedorList().indexOf(p);%>
+                <%int i= Database.getFornecedorList().indexOf(p);
+                if(request.getParameter("Alterar")==null){%>
                
                 <td><%=p.getNome()%> </td>
                 <td><%=p.getRazaosocial()%> </td>
@@ -87,14 +88,46 @@ if(request.getParameter("Alterar")!=null){
                 <td><%=p.getTelefone()%> </td>
                 <td><%=p.getEndereço()%> </td>
                 <td>
-                    
+                    <form>
                       <input type='hidden' name='i' value='<%= i %>'/>
                       <input type='submit' name='Excluir' value='Excluir'/>
                       <input type='submit' name='Alterar' value='Alterar'/>
                     
                     </form>
-                </td>
-                 
+                
+                      <%}else{%>
+                      <%if(Integer.parseInt(request.getParameter("i"))==Database.getFornecedorList().indexOf(p)){%>
+                <form>
+                    <td><input type="text" name="nome" class="form-control" value="<%=p.getNome()%>"></td>
+                    <td><input type="text" name="social" class="form-control" value="<%=p.getRazaosocial()%>"> </td>
+                    <td><input type="text" name="cnpj" class="form-control" value="<%=p.getCnpj()%>"> </td>
+                    <td><input type="text" name="mail" class="form-control" value="<%=p.getEmail()%>"> </td>
+                    <td><input type="text" name="tel" class="form-control" value="<%=p.getTelefone()%>"> </td>
+                    <td><input type="text" name="endereco" class="form-control" value="<%=p.getEndereço()%>"> </td>
+                    <td>
+                    
+                      <input type='hidden' name='i' value='<%= i %>'/>
+                      <input type='submit' name='Excluir' value='Excluir'/>
+                      <input type='submit' name='Alterar2' value='Mudar'/>
+                    
+                    </form>
+               
+                <%}else{%>
+                    <td><%=p.getNome()%> </td>
+                <td><%=p.getRazaosocial()%> </td>
+                <td><%=p.getCnpj()%> </td>
+                <td><%=p.getEmail()%> </td>
+                <td><%=p.getTelefone()%> </td>
+                <td><%=p.getEndereço()%> </td>
+                <td>
+                    <form>
+                      <input type='hidden' name='i' value='<%= i %>'/>
+                      <input type='submit' name='Excluir' value='Excluir'/>
+                      <input type='submit' name='Alterar' value='Alterar'/>
+                    
+                    </form>
+                <%}}%>
+                </td> 
             </tr>
           <%}%> 
           

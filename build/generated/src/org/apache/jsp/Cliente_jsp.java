@@ -3,8 +3,10 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import br.com.fatecpg.db.DatabaseCliente;
+import br.com.fatecpg.db.Cliente;
 
-public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class Cliente_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -35,7 +37,7 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
     PageContext _jspx_page_context = null;
 
     try {
-      response.setContentType("text/html");
+      response.setContentType("text/html;charset=UTF-8");
       pageContext = _jspxFactory.getPageContext(this, request, response,
       			null, true, 8192, true);
       _jspx_page_context = pageContext;
@@ -46,6 +48,11 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html lang=\"en\">\n");
       out.write("<head>\n");
@@ -150,29 +157,134 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\t\t\t</div>\n");
       out.write("\t\t</div>\n");
       out.write("\t</div>\n");
-      out.write("\n");
-      out.write("         <center>\n");
-      out.write("\t\t\t<br><br>\n");
-      out.write("\t\t\t<h1 id=\"corb\">Aplicação Web para Cadastro</h1> <br><br>\n");
-      out.write("\t\t\t<div class=\"col-md-2\"></div>\n");
-      out.write("\t\t\t<div class=\"col-md-8\">\n");
-      out.write("\t\t\t\t<div class=\"caixa\">\n");
-      out.write("\t\t\t\t\t<h2>Selecione o tipo de cadastro abaixo </h2> <br><br>\n");
-      out.write("                                        <div class=\"row\">\n");
-      out.write("                                            <div class=\"col-md-4\" style = margin-left:120px;\"><a href=\"fornecedores.jsp\" class=\"btn btn-secondary btn-lg\" role=\"button\">Fornecedores</a> </div>\n");
-      out.write("                                            <div class=\"col-md-4\"><a href=\"Cliente.jsp\" class=\"btn btn-secondary btn-lg\" role=\"button\">Clientes</a></div>\n");
-      out.write("                                            \n");
-      out.write("                                        </div><br> <br>\n");
-      out.write("\t\t\t\t\t<h3 style=\"margin-bottom:20px;margin-left:20px;\"> Equipe do Projeto :</h3> <h4>\n");
-      out.write("\t\t\t\t\t<ul style=\"list-style:none\">\n");
-      out.write("                                                <li> Felipe Carvalho (Cadastro Fornecedores)  </li>\n");
-      out.write("                                                <li> Beto Leonardo (Cadastro Cliente) </li>\n");
-      out.write("                                                <li> Welton Miguel (Design) </li>\t\t\n");
-      out.write("\t\t\t\t\t</ul> </h4>\n");
-      out.write("\t\t\t\t</div>\n");
-      out.write("\t\t\t</div>\n");
-      out.write("\t\t</center>\n");
-      out.write("\t<!-- CONTEUDO TERMINA AQUI !-->\n");
+      out.write("\r\n");
+      out.write("<!DOCTYPE html>\r\n");
+      out.write("\r\n");
+
+    if(request.getParameter("Incluir")!=null){
+    Cliente c = new Cliente();
+    c.setNome(request.getParameter("txtNome"));
+    c.setCpf(request.getParameter("txtCpf"));
+    c.setRg(request.getParameter("txtRg"));
+    c.setEmail(request.getParameter("txtEmail"));
+    c.setTelefone(request.getParameter("txtTel"));
+    c.setEndereco(request.getParameter("txtEnd"));
+    
+    DatabaseCliente.getClienteList().add(c);
+    
+   response.sendRedirect(request.getRequestURI());
+        
+}
+    if(request.getParameter("Excluir")!=null){
+    String par = request.getParameter("i");
+    int i = Integer.parseInt(par);
+    DatabaseCliente.getClienteList().remove(i);
+    response.sendRedirect(request.getRequestURI());
+    
+    }
+    
+   if(request.getParameter("Alterar")!=null){
+    String par = request.getParameter("i");
+    int i = Integer.parseInt(par);
+    Cliente c = new Cliente();
+        c.setNome(request.getParameter("txtNome"));
+    c.setCpf(request.getParameter("txtCpf"));
+    c.setRg(request.getParameter("txtRg"));
+    c.setEmail(request.getParameter("txtEmail"));
+    c.setTelefone(request.getParameter("txtTel"));
+    c.setEndereco(request.getParameter("txtEnd"));
+    
+    DatabaseCliente.getClienteList().set(i,c);
+    
+    } 
+    
+      out.write("\r\n");
+      out.write("<html>\r\n");
+      out.write("    <head>\r\n");
+      out.write("        <title>Cliente</title>\r\n");
+      out.write("        \r\n");
+      out.write("    </head>\r\n");
+      out.write("    <body>\r\n");
+      out.write("         <h2 id=\"corb\">Cadastrar Cliente</h2>\r\n");
+      out.write("     <form>\r\n");
+      out.write("      <div class=\"container\" >\r\n");
+      out.write("       <div class=\"row\">\r\n");
+      out.write("        <div class=\"col-md-2\"></div>\r\n");
+      out.write("        <div class=\"col-md-8\">\r\n");
+      out.write("         <div class=\"form-group\" id=\"t\">    \r\n");
+      out.write("       Nome:<input class=\"form-control\" placeholder=\"Digite o nome.\" type=\"text\" name=\"txtNome\" value=\"\"><br>\r\n");
+      out.write("       CPF:<input class=\"form-control\" placeholder=\"Digite o número do CPF.\" type=\"text\" name=\"txtCpf\" value=\"\"><br>\r\n");
+      out.write("       RG:<input class=\"form-control\" placeholder=\"Digite o número do RG.\"type=\"text\" name=\"txtRg\" value=\"\"><br>\r\n");
+      out.write("       E-mail:<input class=\"form-control\" placeholder=\"Digite o Email.\" type=\"text\" name=\"txtEmail\" value=\"\"><br>\r\n");
+      out.write("       Telefone:<input class=\"form-control\" placeholder=\"Digite o número de Telefone.\" type=\"text\" name=\"txtTel\" value=\"\"><br>\r\n");
+      out.write("       Endereco:<input class=\"form-control\" placeholder=\"Digite o endereço.\" type=\"text\" name=\"txtEnd\" value=\"\"><br>\r\n");
+      out.write("        </div>\r\n");
+      out.write("            <center><input type=\"submit\" name='Incluir' value='Incluir' class=\"btn btn-primary\"/></center>\r\n");
+      out.write("       \r\n");
+      out.write("      <!--<input type=\"submit\" name=\"Alterar\" value=\"Alterar\" />\r\n");
+      out.write("       <input type=\"submit\" name=\"Excluir\" value=\"Excluir\" /> -->\r\n");
+      out.write("       \r\n");
+      out.write("        </div>\r\n");
+      out.write("            </div>\r\n");
+      out.write("        <br/>\r\n");
+      out.write("           <table class=\"table table-hover table-bordered caixa2\"> \r\n");
+      out.write("            <tr>\r\n");
+      out.write("                <th>Nome</th>\r\n");
+      out.write("                <th>CPF</th>\r\n");
+      out.write("                <th>RG</th>\r\n");
+      out.write("                <th>Email</th>\r\n");
+      out.write("                <th>Telefone</th>\r\n");
+      out.write("                <th>Endereco</th>                    \r\n");
+      out.write("                \r\n");
+      out.write("            </tr>\r\n");
+      out.write("                ");
+int i = 0;
+      out.write("\r\n");
+      out.write("                ");
+ for(Cliente c: DatabaseCliente.getClienteList()){ 
+      out.write("\r\n");
+      out.write("                 <tr>\r\n");
+      out.write("                    \r\n");
+      out.write("                <td>");
+      out.print( c.getNome() );
+      out.write("</td>\r\n");
+      out.write("                <td>");
+      out.print( c.getCpf() );
+      out.write("</td>\r\n");
+      out.write("                <td>");
+      out.print( c.getRg());
+      out.write("</td>\r\n");
+      out.write("                <td>");
+      out.print( c.getEmail());
+      out.write("</td>\r\n");
+      out.write("                <td>");
+      out.print( c.getTelefone());
+      out.write("</td>\r\n");
+      out.write("                <td>");
+      out.print( c.getEndereco());
+      out.write("</td>\r\n");
+      out.write("                <td>\r\n");
+      out.write("                    \r\n");
+      out.write("                    \r\n");
+      out.write("                      <input type='hidden' name='i' value='");
+      out.print( i );
+      out.write("'/>\r\n");
+      out.write("                      <input type='submit' name='Excluir' value='Excluir'/>\r\n");
+      out.write("                      <input type='submit' name='Alterar' value='Alterar'/>\r\n");
+      out.write("                  </form>\r\n");
+      out.write("                    \r\n");
+      out.write("                </td>\r\n");
+      out.write("                \r\n");
+      out.write("            </tr>\r\n");
+      out.write("            ");
+i++; }
+      out.write("\r\n");
+      out.write("          \r\n");
+      out.write("        </table>\r\n");
+      out.write("        <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>\r\n");
+      out.write("        <script src=\"js/bootstrap.min.js\"></script>\r\n");
+      out.write("    </body>\r\n");
+      out.write("</html>\r\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;
